@@ -1,9 +1,15 @@
+import ReactMarkdown from "react-markdown";
+import Image from "next/image";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import dark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
+import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
+import css from "react-syntax-highlighter/dist/cjs/languages/prism/css";
+
 import PostHeader from "./post-header";
 import classes from "./post-content.module.css";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
-import Image from "next/image";
-import ReactMarkdown from "react-markdown";
+SyntaxHighlighter.registerLanguage("js", js);
+SyntaxHighlighter.registerLanguage("css", css);
 
 function PostContent(props) {
   const { post } = props;
@@ -11,16 +17,6 @@ function PostContent(props) {
   const imagePath = `/images/posts/${post.slug}/${post.image}`;
 
   const customRenderers = {
-    image(image) {
-      return (
-        <Image
-          src={`/images/posts/${post.slug}/${image.src}`}
-          alt={image.alt}
-          width={600}
-          height={300}
-        />
-      );
-    },
     paragraph(paragraph) {
       const { node } = paragraph;
 
@@ -38,13 +34,18 @@ function PostContent(props) {
           </div>
         );
       }
+
       return <p>{paragraph.children}</p>;
     },
 
     code(code) {
-      return;
+      const { language, value } = code;
+      return (
+        <SyntaxHighlighter style={dark} language={language} children={value} />
+      );
     },
   };
+
   return (
     <article className={classes.content}>
       <PostHeader title={post.title} image={imagePath} />
