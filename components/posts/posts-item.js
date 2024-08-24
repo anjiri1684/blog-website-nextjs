@@ -11,16 +11,26 @@ function PostItem(props) {
     day: "numeric",
   });
 
+  const imagePath = `/images/posts/${slug}/${image}`;
+
+  const linkPath = `/posts/${slug}`;
+
   return (
     <li className={classes.post}>
-      <Link>
+      <Link href={linkPath}>
         <span>
           <div className={classes.image}>
-            <Image src={image} />
+            <Image
+              src={imagePath}
+              alt={title}
+              width={300}
+              height={200}
+              layout="responsive"
+            />
           </div>
           <div className={classes.content}>
             <h3>{title}</h3>
-            <title>{date}</title>
+            <title>{formattedDate}</title>
             <p>{excerpt}</p>
           </div>
         </span>
