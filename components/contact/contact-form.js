@@ -8,13 +8,18 @@ function ContactForm() {
 
   function sendMessageHandler(e) {
     e.preventDefault();
+    console.log(enteredEmail, enteredName, enteredMessage);
 
     fetch("/api/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify({
+        email: enteredEmail,
+        name: enteredName,
+        message: enteredMessage,
+      }),
     });
   }
 
@@ -25,16 +30,34 @@ function ContactForm() {
         <div className={classes.controls}>
           <div className={classes.control}>
             <label htmlFor="email">Your Email</label>
-            <input type="email" id="email" required />
+            <input
+              type="email"
+              id="email"
+              required
+              value={enteredEmail}
+              onChange={(e) => setEnteredEmail(e.target.value)}
+            />
           </div>
           <div className={classes.control}>
             <label htmlFor="name">Your Name</label>
-            <input type="text" id="name" required />
+            <input
+              type="text"
+              id="name"
+              required
+              value={enteredName}
+              onChange={(e) => setEnteredName(e.target.value)}
+            />
           </div>
         </div>
         <div className={classes.control}>
           <label htmlFor="message">Your Message</label>
-          <textarea name="message" id="message" rows={5}></textarea>
+          <textarea
+            name="message"
+            id="message"
+            rows={5}
+            value={enteredMessage}
+            onChange={(e) => setEnteredMessage(e.target.value)}
+          ></textarea>
         </div>
         <div className={classes.actions}>
           <button>Send Message</button>
