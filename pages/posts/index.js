@@ -2,7 +2,7 @@ import AllPosts from "../../components/posts/all-posts";
 
 const DUMMY_POSTS = [
   {
-    slug: "getting-started-with-nextjs",
+    slug: "getting-started-nextjs",
     title: "Getting started with Nextjs",
     image: "getting-started-nextjs.png",
     excerpt:
